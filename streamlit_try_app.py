@@ -30,110 +30,81 @@ st.markdown("""
     }
 
     /* =========================================
-       PERBAIKAN KOLOM INPUT (FORM LOGIN)
-       Agar presisi, tidak ada blok hitam, dan rapi
+       PERBAIKAN TOTAL KOLOM INPUT (USERNAME & PASSWORD)
        ========================================= */
     
-    /* 1. Reset Container Input */
+    /* 1. Reset Jarak */
     [data-testid="stTextInput"] {
-        margin-bottom: 10px;
+        margin-bottom: 15px; 
     }
     
-    /* 2. Kotak Input (Wrapper) - Memaksa background Putih & Border Rapi */
+    /* 2. KOTAK PEMBUNGKUS UTAMA (WRAPPER) */
+    /* Ini yang menentukan bentuk bulat dan garis pinggir */
     [data-testid="stTextInput"] > div > div {
-        background-color: #FFFFFF !important;
+        background-color: #FFFFFF !important; /* Wajib Putih */
+        border: 1px solid #333333 !important; /* Garis pinggir hitam/abu tua tegas */
+        border-radius: 15px !important;       /* Sudut membulat */
         color: #333333 !important;
-        border: 1px solid #E0E0E0 !important; /* Border abu lembut */
-        border-radius: 12px !important;
-        box-shadow: none !important;
+        box-shadow: none !important;          /* Hapus bayangan aneh */
+        align-items: center;                  /* Pastikan teks & ikon sejajar */
     }
 
-    /* 3. Efek saat diklik (Focus) - Ubah merah jadi Hitam Elegan */
+    /* 3. EFEK SAAT DIKLIK (FOCUS) */
     [data-testid="stTextInput"] > div > div:focus-within {
-        border-color: #333333 !important;
-        box-shadow: 0 0 0 1px #333333 !important; /* Efek highlight tipis */
+        border-color: #000000 !important;     /* Garis jadi hitam pekat saat diklik */
+        border-width: 2px !important;         /* Sedikit lebih tebal biar jelas aktif */
     }
 
-    /* 4. Warna Teks yang diketik user */
+    /* 4. BAGIAN INPUT TEKS (DALAM KOTAK) */
     [data-testid="stTextInput"] input {
-        color: #333333 !important;
-        -webkit-text-fill-color: #333333 !important; /* Fix untuk Chrome */
-        caret-color: #333333; /* Warna kursor ketik */
+        background-color: transparent !important; /* Transparan agar ikut warna wrapper */
+        color: #333333 !important;                /* Warna tulisan hitam */
+        border: none !important;                  /* Hapus border bawaan input */
     }
 
-    /* 5. Warna Placeholder ("Masukkan username...") */
+    /* 5. BAGIAN TOMBOL MATA (PASSWORD) - INI KUNCI PERBAIKANNYA */
+    /* Membuat area tombol mata transparan agar tidak ada blok hitam */
+    [data-testid="stTextInput"] button {
+        background-color: transparent !important; 
+        border: none !important;
+        color: #555555 !important; /* Warna ikon mata abu-abu */
+    }
+
+    /* 6. Placeholder ("Masukkan username...") */
     [data-testid="stTextInput"] input::placeholder {
-        color: #999999 !important;
+        color: #888888 !important;
         opacity: 1;
     }
 
-    /* 6. Sembunyikan Label default Streamlit agar tidak dobel */
+    /* Sembunyikan Label default Streamlit */
     [data-testid="stTextInput"] label {
         display: none;
     }
 
     /* =========================================
-       PERBAIKAN TABS (LOGIN / DAFTAR)
+       ELEMEN LAIN (TABS, TOMBOL, TEXT)
        ========================================= */
-    /* Tab Tidak Aktif */
-    button[data-baseweb="tab"] > div {
-        color: #999999 !important;
-        font-weight: 400;
-    }
-    /* Tab Aktif (Saat dipilih) */
-    button[data-baseweb="tab"][aria-selected="true"] > div {
-        color: #000000 !important;
-        font-weight: 700;
-    }
-    /* Garis bawah tab aktif */
-    button[data-baseweb="tab"][aria-selected="true"] {
-        border-bottom-color: #000000 !important;
-    }
+    /* Tabs */
+    button[data-baseweb="tab"] > div { color: #888888 !important; }
+    button[data-baseweb="tab"][aria-selected="true"] > div { color: #000000 !important; font-weight: bold; }
+    button[data-baseweb="tab"][aria-selected="true"] { border-bottom-color: #000000 !important; }
 
-    /* =========================================
-       PERBAIKAN TEXT KANAN (GLASS CARD)
-       Agar terbaca jelas di background terang
-       ========================================= */
-    .glass-text-title {
-        font-size: 2rem;
-        font-weight: 700;
-        margin-bottom: 15px;
-        color: #1A1A1A !important; /* HITAM PEKAT */
-        line-height: 1.2;
-    }
-    .glass-text-body {
-        font-size: 1rem;
-        line-height: 1.6;
-        color: #444444 !important; /* ABU TUA */
-        font-weight: 400;
-    }
-    
     /* Tombol Utama */
     .stButton > button {
-        background-color: #222222 !important;
+        background-color: #1A1A1A !important;
         color: white !important;
         border-radius: 30px;
-        border: none;
-        padding: 0.5rem 1rem;
+        padding: 0.6rem 2rem;
         font-weight: 600;
+        border: none;
+        width: 100%;
     }
     .stButton > button:hover {
         background-color: #000000 !important;
-        transform: translateY(-2px);
+        transform: scale(1.01);
     }
 
-    /* Header Kiri */
-    .hero-title {
-        font-size: 3rem;
-        font-weight: 700;
-        color: #1A1A1A;
-    }
-    .hero-subtitle {
-        color: #666666;
-        font-weight: 300;
-    }
-    
-    /* Container Gambar Kanan */
+    /* Container Gambar Kanan & Glass Card */
     .right-image-container {
         position: relative;
         width: 100%;
@@ -144,35 +115,48 @@ st.markdown("""
         background-size: cover;
         background-position: center;
     }
-
-    /* Glass Card styling */
     .glass-card {
         position: absolute;
         top: 50%;
         right: -40px;
         transform: translateY(-50%);
         width: 85%;
-        background: rgba(255, 255, 255, 0.55);
-        backdrop-filter: blur(25px);
-        -webkit-backdrop-filter: blur(25px);
+        background: rgba(255, 255, 255, 0.75); 
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
         padding: 40px;
         border-radius: 24px;
         border: 1px solid rgba(255, 255, 255, 0.8);
-        box-shadow: 0 10px 40px rgba(0,0,0,0.05);
     }
+    .glass-text-title {
+        font-size: 1.8rem; font-weight: 700; color: #000000; margin-bottom: 10px;
+    }
+    .glass-text-body {
+        font-size: 1rem; color: #333333;
+    }
+    .hero-title { font-size: 3rem; font-weight: 700; color: #000000; }
+    .hero-subtitle { font-size: 1.1rem; color: #555555; margin-bottom: 2rem; }
     
-    /* Padding Container */
-    .block-container {
-        padding-top: 2rem;
-        max-width: 100%;
-    }
+    .block-container { padding-top: 2rem; max-width: 100%; }
+    /* ... (kode css sebelumnya) ... */
+
+    /* --- PERBAIKAN 4: UBAH BENTUK GAMBAR KATALOG JADI ARCH (KUBAH) --- */
+    /* Target khusus gambar di dalam kolom katalog */
+    div[data-testid="stImage"] img {
+        border-radius: 100px 100px 0 0 !important; /* Membuat lengkungan kubah di atas */
+        aspect-ratio: 3 / 4 !important;            /* Memaksa gambar jadi agak tinggi (portrait) */
+        object-fit: cover !important;              /* Memastikan gambar penuh & tidak gepeng */
+        width: 100% !important;
+        margin-bottom: 10px;
+ 
+</style>
 </style>
 """, unsafe_allow_html=True)
 
 # Placeholder Gambar Produk
 IMG_LAVENDER = "https://i.pinimg.com/736x/1f/7a/b3/1f7ab3ca70a7368b15d124be258c3baa.jpg"
-IMG_VANILLA = "https://images.unsplash.com/photo-1603006905003-be475563bc59?w=400&q=80"
-IMG_SANDALWOOD = "https://images.unsplash.com/photo-1596433809252-260c2745dfdd?w=400&q=80"
+IMG_VANILLA = "https://i.pinimg.com/1200x/3c/23/a0/3c23a06d1d6ed7ade0b75d58d1967072.jpg"
+IMG_SANDALWOOD = "https://i.pinimg.com/1200x/7b/c3/9b/7bc39b94e139510186d56d134256a1c0.jpg"
 
 # ============================
 # 3. CLASS & DATABASE
@@ -310,22 +294,100 @@ def menu_admin():
 def menu_pembeli(user):
     st.sidebar.title(f"Halo, {user}")
     menu = st.sidebar.selectbox("Menu:", ["Katalog", "Keranjang", "Logout"])
+    
+    # ==========================
+    # HALAMAN KATALOG
+    # ==========================
     if menu == "Katalog":
-        st.title("Katalog Produk")
+        # Judul Halaman (Warna Hitam)
+        st.markdown("<h1 style='color: #000000;'>Katalog Produk</h1>", unsafe_allow_html=True)
+        
         cols = st.columns(3)
         for i, p in enumerate(st.session_state['produk_list']):
             with cols[i%3]:
+                # Gambar Produk
                 st.image(p.img_url)
-                st.write(f"**{p.get_nama()}**")
-                st.write(f"Rp {p.get_harga()}")
+                
+                # Nama Produk & Harga (Warna Hitam & Rata Tengah)
+                st.markdown(f"""
+                <div style="text-align: left; margin-top: 5px;">
+                    <div style="font-weight: bold; font-size: 1.1rem; color: #000000;">{p.get_nama()}</div>
+                    <div style="color: #333333; margin-bottom: 15px;">Rp {p.get_harga()}</div>
+                </div>
+                """, unsafe_allow_html=True)
+                
+                # Tombol Beli
                 if st.button("Beli", key=f"b_{i}"):
                     st.session_state['keranjang'].append({"nama": p.get_nama(), "harga": p.get_harga()})
                     st.toast("Masuk Keranjang!")
+
+    # ==========================
+    # HALAMAN KERANJANG
+    # ==========================
     elif menu == "Keranjang":
-        st.title("Keranjang")
-        st.write(st.session_state['keranjang'])
-    elif menu == "Logout":
-        st.session_state['user_role'] = None; st.rerun()
+        st.title("Your Cart")
+        
+        # Ambil data keranjang
+        cart_items = st.session_state['keranjang']
+        
+        # Cek jika keranjang kosong
+        if not cart_items:
+            st.info("Keranjang Anda masih kosong.")
+            st.markdown("<br><br><br>", unsafe_allow_html=True) 
+        else:
+            # Layout 2 Kolom: Kiri (Produk) & Kanan (Total)
+            col_kiri, col_kanan = st.columns([2, 1], gap="large")
+            
+            # --- KOLOM KIRI: DAFTAR ITEM ---
+            with col_kiri:
+                st.subheader("Product List")
+                st.markdown("---")
+                
+                # Helper: Cari URL gambar berdasarkan nama produk
+                def get_img_by_name(nama_dicari):
+                    for p in st.session_state['produk_list']:
+                        if p.get_nama() == nama_dicari:
+                            return p.img_url
+                    return "https://via.placeholder.com/150" 
+
+                # Loop item di keranjang
+                for i, item in enumerate(cart_items):
+                    c1, c2, c3, c4 = st.columns([1.5, 3, 2, 1])
+                    
+                    with c1:
+                        img_src = get_img_by_name(item['nama'])
+                        st.markdown(f"""
+                        <div style="border-radius: 10px; overflow: hidden; height: 80px; width: 80px;">
+                            <img src="{img_src}" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        """, unsafe_allow_html=True)
+
+                    with c2:
+                        st.markdown(f"**{item['nama']}**")
+                        st.caption("Scented Candle")
+                    
+                    with c3:
+                        st.markdown(f"**Rp {item['harga']:,}**")
+                        
+                    with c4:
+                        if st.button("✕", key=f"del_{i}"):
+                            cart_items.pop(i) 
+                            st.rerun()      
+                    
+                    st.markdown("---") 
+
+            # --- KOLOM KANAN: CART TOTALS ---
+            with col_kanan:
+                st.markdown("""
+                <div style="background-color: #F3F3F3; padding: 25px; border-radius: 15px;">
+                    <h4 style="margin-top:0; color: #333;">Cart Totals</h4>
+                    <hr style="border-top: 1px solid #ccc;">
+                """, unsafe_allow_html=True)
+                
+                total_belanja = sum(item['harga'] for item in cart_items)
+                
+                c_sub1, c_sub2 = st.columns(2)
+                with c_sub1: st.write("Subtotal")
 
 # ============================
 # 6. MAIN PROGRAM
